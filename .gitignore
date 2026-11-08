@@ -1,0 +1,98 @@
+# ==========================================
+# SecureRide Platform — Root .gitignore
+# ==========================================
+
+# Dependencies
+node_modules/
+*/node_modules/
+package-lock.json.bak
+yarn-error.log*
+npm-debug.log*
+pnpm-debug.log*
+
+# Environment Variables & Sensitive Credentials
+.env
+.env.*
+*.env
+!.env.example
+!.env.test.example
+credentials.json
+*.pem
+*.key
+*.cert
+*.pfx
+
+# Production & Compilation Artifacts
+dist/
+*/dist/
+build/
+*/build/
+out/
+*/out/
+*.tsbuildinfo
+
+# Next.js (Client Web & PWA)
+.next/
+*/.next/
+.vercel/
+
+# Testing & Coverage Reports
+coverage/
+*/coverage/
+.nyc_output/
+*.lcov
+test-results/
+
+# Application Logs & Diagnostics
+logs/
+*/logs/
+*.log
+
+# Caches & Temporary Storage
+.cache/
+*/.cache/
+.eslintcache
+.stylelintcache
+tmp/
+temp/
+.temp/
+
+# IDE & Editor Artifacts
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+
+# Operating System Files
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Local Databases, SQLite & Backup Dumps
+*.dump
+*.sql
+*.sqlite
+*.sqlite3
+
+# Cloudflare & Cloud Staging Artifacts
+.aws/
+.wrangler/
+
