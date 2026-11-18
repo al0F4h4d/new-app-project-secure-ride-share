@@ -272,7 +272,7 @@ export class AuthService {
 
     // 2. Find user
     const user = await authRepository.findUserByPhone(normalizedPhone);
-    if (!user) {
+    if (!user || user.deletion_status === 'deleted') {
       throw new UnauthorizedError(
         ErrorCodes.AUTH_INVALID_CREDENTIALS,
         'Incorrect mobile number or password.',

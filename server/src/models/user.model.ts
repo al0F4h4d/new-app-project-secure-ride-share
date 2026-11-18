@@ -17,12 +17,12 @@ export interface ISavedAddress {
 }
 
 export interface IUser extends Document {
-  phone_number: string;
+  phone_number?: string | null;
   email?: string | null;
   password_hash: string;
   role: UserRole;
   admin_sub_role?: AdminSubRole | null;
-  full_name: string;
+  full_name?: string | null;
   profile_photo_url?: string | null;
   emergency_contacts: IEmergencyContact[];
   saved_addresses: ISavedAddress[];
@@ -79,9 +79,13 @@ export const UserSchema = new Schema<IUser>(
   {
     phone_number: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
-      match: [/^(?:\+8801|01)[3-9]\d{8}$/, 'Must be a valid Bangladeshi phone number'],
+      default: null,
+      validate: {
+        validator: (val: string | null) => !val || /^(?:\+8801|01)[3-9]\d{8}$/.test(val),
+        message: 'Must be a valid Bangladeshi phone number',
+      },
     },
     email: {
       type: String,
@@ -106,10 +110,14 @@ export const UserSchema = new Schema<IUser>(
     },
     full_name: {
       type: String,
-      required: true,
-      minlength: 2,
+      required: false,
       maxlength: 80,
       trim: true,
+      default: null,
+      validate: {
+        validator: (val: string | null) => !val || val.trim().length >= 2,
+        message: 'Full name must be at least 2 characters',
+      },
     },
     profile_photo_url: {
       type: String,
@@ -172,7 +180,7 @@ export const UserSchema = new Schema<IUser>(
 );
 
 // Indexes
-UserSchema.index({ phone_number: 1 }, { unique: true, name: 'uniq_phone_number' });
+UserSchema.index({ phone_number: 1 }, { unique: true, sparse: true, name: 'uniq_phone_number' });
 UserSchema.index({ email: 1 }, { unique: true, sparse: true, name: 'uniq_sparse_email' });
 UserSchema.index({ role: 1, admin_sub_role: 1 }, { name: 'idx_role_admin_sub_role' });
 UserSchema.index({ scheduled_deletion_at: 1 }, { sparse: true, name: 'idx_scheduled_deletion' });

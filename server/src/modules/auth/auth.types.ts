@@ -21,9 +21,9 @@ export interface VerifyOtpDto {
 
 export interface UserSummaryData {
   _id: string;
-  phone_number: string;
+  phone_number?: string | null;
   role: UserRole;
-  full_name: string;
+  full_name?: string | null;
   language_preference: 'bn' | 'en';
   email?: string | null;
   passenger_wallet_balance?: string;

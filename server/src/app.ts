@@ -13,6 +13,8 @@ import { versionGate } from './common/middlewares/versionGate.middleware';
 import { globalRateLimiter } from './common/middlewares/rateLimiter.middleware';
 import { NotFoundError } from './common/errors/appError';
 import { authRoutes } from './modules/auth/auth.routes';
+import { passengerRoutes } from './modules/passenger/passenger.routes';
+import { driverRoutes } from './modules/driver/driver.routes';
 
 export const createApp = (): express.Application => {
   const app = express();
@@ -96,6 +98,8 @@ export const createApp = (): express.Application => {
 
   // 8. Domain API Routes
   app.use('/api/v1/auth', authRoutes);
+  app.use('/api/v1/passengers', passengerRoutes);
+  app.use('/api/v1/drivers', driverRoutes);
 
   // 9. Catch Unmatched Routes (404 Not Found)
   app.use((req: Request, _res: Response, next: NextFunction) => {
